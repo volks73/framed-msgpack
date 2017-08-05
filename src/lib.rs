@@ -13,7 +13,7 @@
 //! ```
 //! use framed_msgpack;
 //! use tokio_io::{AsyncRead, AsyncWrite};
-//! use tokio_proto::pipeline::ServerProto;
+//! use tokio_proto::streaming::pipeline::ServerProto;
 //!
 //! struct FramedMsgpackProto;
 //! 
