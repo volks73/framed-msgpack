@@ -1,0 +1,15 @@
+[package]
+name = "framed-msgpack"
+description = "A MessagePack-based protocol with a prefix message length for use as a codec for tokio-rs"
+version = "0.1.0"
+authors = ["Christopher Field <cfield2@gmail.com>"]
+license = "MIT/Apache-2.0"
+keywords = ["MessagePack", "msgpack", "framed", "codec", "futures"]
+categories = ["encoding", "decoding", "value-formatting"]
+
+[dependencies]
+bytes = "0.4"
+futures = "0.1"
+rmpv = "0.4"
+tokio-io = "0.1"
+
