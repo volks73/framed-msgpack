@@ -1,7 +1,6 @@
-// Large portions of this code were obtain and modified from the tokio-io project. Specially, the
-// implementation is based on the code in the `tokio_io::codec::length_delimited` module.
-//
-// See https://github.com/tokio-rs/tokio-io
+// Large portions of this code were obtain and modified from the tokio-io project. Specifically, the
+// implementation is based on the code in the `tokio_io::codec::length_delimited` module. See
+// https://github.com/tokio-rs/tokio-io.
 
 use bytes::{Buf, BufMut, BytesMut, IntoBuf, BigEndian};
 use bytes::buf::Chain;
@@ -12,7 +11,7 @@ use std::io::{self, Cursor};
 use tokio_io::{AsyncRead, AsyncWrite, codec};
 
 /// The number of bytes for the length prefix. The length is a 32-bit unsigned integer, which would
-/// be four (4) bytes.
+/// be four (4) bytes. This cannot currently be changed.
 const HEAD_LENGTH: usize = 4;
 
 pub struct Framed<T> {
@@ -20,22 +19,34 @@ pub struct Framed<T> {
 }
 
 impl<T: AsyncRead + AsyncWrite> Framed<T> {
+    /// Creates a new `Framed`.
     pub fn new(upstream: T) -> Framed<T> {
         Framed {
             inner: FramedRead::new(FramedWrite::new(upstream)),
         }
     }
-}
 
-impl<T: AsyncRead + AsyncWrite> Framed<T> {
+    /// Returns a reference to the underlying I/O stream wrapped by `Framed`.
+    ///
+    /// Note that care should be taken to not tamper with the underlying stream of data coming in
+    /// as it may corrupt the stream of frames otherwise being worked with.
     pub fn get_ref(&self) -> &T {
         self.inner.get_ref().get_ref()
     }
 
+    /// Returns a mutable reference to the underlying I/O stream wrapped by
+    /// `Framed`.
+    ///
+    /// Note that care should be taken to not tamper with the underlying stream of data coming in
+    /// as it may corrupt the stream of frames otherwise being worked with.
     pub fn get_mut(&mut self) -> &mut T {
         self.inner.get_mut().get_mut()
     }
 
+    /// Consumes the `Framed`, returning its underlying I/O stream.
+    ///
+    /// Note that care should be taken to not tamper with the underlying stream of data coming in
+    /// as it may corrupt the stream of frames otherwise being worked with.
     pub fn into_inner(self) -> T {
         self.inner.into_inner().into_inner()
     }
@@ -84,6 +95,7 @@ pub struct FramedRead<T> {
 }
 
 impl<T: AsyncRead> FramedRead<T> {
+    /// Creates a new `FramedRead`.
     pub fn new(upstream: T) -> FramedRead<T> {
         FramedRead {
             inner: codec::FramedRead::new(upstream, Decoder {
@@ -92,14 +104,27 @@ impl<T: AsyncRead> FramedRead<T> {
         }
     }
 
+    /// Returns a reference to the underlying I/O stream wrapped by `FramedRead`.
+    ///
+    /// Note that care should be taken to not tamper with the underlying stream of data coming in
+    /// as it may corrupt the stream of frames otherwise being worked with.
     pub fn get_ref(&self) -> &T {
         self.inner.get_ref()
     }
 
+    /// Returns a mutable reference to the underlying I/O stream wrapped by
+    /// `FramedRead`.
+    ///
+    /// Note that care should be taken to not tamper with the underlying stream of data coming in
+    /// as it may corrupt the stream of frames otherwise being worked with.
     pub fn get_mut(&mut self) -> &mut T {
         self.inner.get_mut()
     }
 
+    /// Consumes the `FramedRead`, returning its underlying I/O stream.
+    ///
+    /// Note that care should be taken to not tamper with the underlying stream of data coming in
+    /// as it may corrupt the stream of frames otherwise being worked with.
     pub fn into_inner(self) -> T {
         self.inner.into_inner()
     }
@@ -230,6 +255,7 @@ pub struct FramedWrite<T, B: IntoBuf = BytesMut> {
 }
 
 impl<T> FramedWrite<T> {
+    /// Creates a new `FramedWrite`.
     pub fn new(upstream: T) -> FramedWrite<T> {
         FramedWrite {
             inner: upstream,
@@ -237,14 +263,26 @@ impl<T> FramedWrite<T> {
         }
     }
 
+    /// Returns a reference to the underlying I/O stream wrapped by `FramedWrite`.
+    ///
+    /// Note that care should be taken to not tamper with the underlying stream of data coming in
+    /// as it may corrupt the stream of frames otherwise being worked with.
     pub fn get_ref(&self) -> &T {
         &self.inner
     }
 
+    /// Returns a mutable reference to the underlying I/O stream wrapped by `FramedWrite`.
+    ///
+    /// Note that care should be taken to not tamper with the underlying stream of data coming in
+    /// as it may corrupt the stream of frames otherwise being worked with.
     pub fn get_mut(&mut self) -> &mut T {
         &mut self.inner
     }
 
+    /// Consumes the `FramedWrite`, returning its underlying I/O stream.
+    ///
+    /// Note that care should be taken to not tamper with the underlying stream of data coming in
+    /// as it may corrupt the stream of frames otherwise being worked with.
     pub fn into_inner(self) -> T {
         self.inner
     }
