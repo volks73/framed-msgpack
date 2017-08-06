@@ -187,7 +187,6 @@ enum DecodeState {
     Data(usize),
 }
 
-
 impl Decoder {
     fn decode_head(&mut self, src: &mut BytesMut) -> io::Result<Option<usize>> {
         if src.len() < HEAD_LENGTH {
