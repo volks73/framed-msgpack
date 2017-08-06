@@ -1,12 +1,14 @@
 [package]
 name = "framed-msgpack"
-description = "A MessagePack-based codec with a prefix message length for use with tokio-rs"
+description = "A MessagePack-based codec with a prefixed length for use with tokio-rs"
 version = "0.0.1"
 authors = ["Christopher Field <cfield2@gmail.com>"]
 license-file = "LICENSE"
 readme = "README.md"
 keywords = ["MessagePack", "msgpack", "framed", "codec", "framing"]
 categories = ["encoding", "decoding", "value-formatting"]
+homepage = "https://github.com/volks73/framed-msgpack"
+repository = "https://github.com/volks73/framed-msgpack"
 
 [dependencies]
 bytes = "0.4"
