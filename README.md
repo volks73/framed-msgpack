@@ -17,6 +17,24 @@ Next, add this to your crate:
 
 ```rust
 extern crate framed_msgpack;
+```
+
+## Getting Started ##
+
+Clone this repository, then run the following command:
+
+```
+$ cargo run --example echo_server
+```
+
+This will run a server at `localhost:12345`. From another terminal, connect to the server and send framed-msgpack messages. The binary messages will be returned unchanged. A combination of the [netcat](https://en.wikipedia.org/wiki/Netcat), `nc`, application on UNIX-like systems, or [ncat](https://nmap.org/ncat/) for Windows, and the [panser](https://github.com/volks73/panser) application can be used to create framed-msgpack messages to send to the example echo server. For example, 
+
+```
+$ echo '[0,1,2]' | panser --from json --to json --sized-output | nc localhost 12345 | panser --from msgpack --to json --sized-input --delimited-output 0Ah
+[0,1,2]
+$
+```
+
 ## License ##
 
 See the LICENSE file for more information about licensing and copyright.

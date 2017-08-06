@@ -1,9 +1,9 @@
-//! Frame a MessagePack message (payload) from a stream with the total message length prefixed as
+//! Frame a MessagePack message (payload) from a transport with the total message length prefixed as
 //! a 32-bit unsigned integer encoded in four (4) bytes.
 //!
 //! The implementation is based on the `tokio_io::codec::length_delimited` module in the
 //! [tokio-io](https://github.com/tokio-rs/tokio-io) project but instead of decoding and encoding
-//! a payload from a stream into a buffer of bytes, the full MessagePack message is decoded or
+//! a payload from a transport into a buffer of bytes, the full MessagePack message is decoded or
 //! encoded, respectively. 
 //!
 //! # Getting Started

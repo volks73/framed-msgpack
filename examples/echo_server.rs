@@ -1,4 +1,4 @@
-//! Simple TCP echo server using framed-msgpack
+//! A simple TCP echo server using framed-msgpack
 //!
 //! Requests are received and responses are just the requests sent back to the client.
 

@@ -1,6 +1,6 @@
-// Large portions of this code were obtain and modified from the tokio-io project. Specifically, the
-// implementation is based on the code in the `tokio_io::codec::length_delimited` module. See
-// https://github.com/tokio-rs/tokio-io.
+// Portions of this code were obtain and modified from the tokio-io project. Specifically, the
+// implementation is based on the code in the `tokio_io::codec::length_delimited` module for the
+// decoder. See https://github.com/tokio-rs/tokio-io.
 
 use bytes::{Buf, BufMut, BytesMut, BigEndian};
 use rmpv::{self, Value};
