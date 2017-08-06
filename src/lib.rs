@@ -11,34 +11,31 @@
 //! This can be used with the tokio-proto crate.
 //!
 //! ```
-//! use framed_msgpack;
+//! use framed_msgpack::Codec;
 //! use tokio_io::{AsyncRead, AsyncWrite};
-//! use tokio_proto::streaming::pipeline::ServerProto;
+//! use tokio_io::codec::Framed;
+//! use tokio_proto::pipeline::ServerProto;
 //!
 //! struct FramedMsgpackProto;
 //! 
 //! impl<T: AsyncRead + AsyncWrite + 'static> ServerProto<T> for FramedMsgpackProto {
 //!    type Request = Value;
 //!    type Response = Value;
-//!    type Transport = Framed<T, framed_msgpack::Framed>;
+//!    type Transport = Framed<T, Codec>
 //!    type BindTransport = Result<Self::Transport, io::Error>;
 //!
 //!    fn bind_transport(&self, io: T) -> Self::BindTransport {
-//!        Ok(framed_msgpack::Framed::new(io))
+//!        Ok(io.framed(Codec::new()))
 //!    }
 //! }
 //! ```
 
 extern crate bytes;
-#[macro_use]
 extern crate futures;
 extern crate rmpv;
-#[macro_use]
 extern crate tokio_io;
 
-pub use self::codec::Framed;
-pub use self::codec::FramedWrite;
-pub use self::codec::FramedRead;
+pub use self::codec::Codec;
 
 mod codec;
 
