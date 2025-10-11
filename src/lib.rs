@@ -1,10 +1,10 @@
 //! Frame a MessagePack message (payload) from a transport with the total message length prefixed as
 //! a 32-bit unsigned integer encoded in four (4) bytes.
 //!
-//! The implementation is based on the `tokio_io::codec::length_delimited` module in the
-//! [tokio-io](https://github.com/tokio-rs/tokio-io) project but instead of decoding and encoding
+//! The implementation is based on the `tokio_util::codec::length_delimited` module in the
+//! [tokio-util](https://github.com/tokio-rs/tokio) project but instead of decoding and encoding
 //! a payload from a transport into a buffer of bytes, the full MessagePack message is decoded or
-//! encoded, respectively. 
+//! encoded, respectively.
 //!
 //! # Getting Started
 //!
@@ -12,12 +12,12 @@
 //!
 //! ```
 //! use framed_msgpack::Codec;
-//! use tokio_io::{AsyncRead, AsyncWrite};
-//! use tokio_io::codec::Framed;
+//! use tokio::io::{AsyncRead, AsyncWrite};
+//! use tokio_util::codec::Framed;
 //! use tokio_proto::pipeline::ServerProto;
 //!
 //! struct FramedMsgpackProto;
-//! 
+//!
 //! impl<T: AsyncRead + AsyncWrite + 'static> ServerProto<T> for FramedMsgpackProto {
 //!    type Request = Value;
 //!    type Response = Value;
@@ -33,9 +33,8 @@
 extern crate bytes;
 extern crate futures;
 extern crate rmpv;
-extern crate tokio_io;
+extern crate tokio_util;
 
 pub use self::codec::Codec;
 
 mod codec;
-

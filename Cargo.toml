@@ -1,7 +1,7 @@
 [package]
 name = "framed-msgpack"
 description = "A MessagePack-based codec with a prefixed length for use with tokio-rs"
-version = "0.0.1"
+version = "0.0.2"
 authors = ["Christopher Field <cfield2@gmail.com>"]
 license-file = "LICENSE"
 readme = "README.md"
@@ -11,12 +11,13 @@ homepage = "https://github.com/volks73/framed-msgpack"
 repository = "https://github.com/volks73/framed-msgpack"
 
 [dependencies]
-bytes = "0.4"
-futures = "0.1"
-rmpv = "0.4"
-tokio-io = "0.1"
+bytes = "1.10.1"
+futures = "0.3.31"
+rmpv = "1.3.0"
+tokio-util = { version = "0.7.16", features = ["codec"] }
 
 [dev-dependencies]
-tokio-proto = "0.1"
+tokio = "1.47.1"
+tokio-proto = "0.1.1"
 tokio-service = "0.1"
 

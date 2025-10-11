@@ -5,19 +5,19 @@
 extern crate framed_msgpack;
 extern crate futures;
 extern crate rmpv;
-extern crate tokio_io;
 extern crate tokio_proto;
 extern crate tokio_service;
+extern crate tokio_util;
 
 use framed_msgpack::Codec;
-use futures::{future, Future, BoxFuture};
+use futures::{future, BoxFuture, Future};
 use rmpv::Value;
 use std::io;
-use tokio_io::{AsyncRead, AsyncWrite};
-use tokio_io::codec::Framed;
+use tokio::io::{AsyncRead, AsyncWrite};
 use tokio_proto::pipeline::ServerProto;
 use tokio_proto::TcpServer;
 use tokio_service::Service;
+use tokio_util::codec::Framed;
 
 pub struct FramedMsgpackProto;
 
@@ -50,4 +50,3 @@ fn main() {
     let server = TcpServer::new(FramedMsgpackProto, addr);
     server.serve(|| Ok(Echo));
 }
-
